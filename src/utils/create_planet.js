@@ -87,34 +87,37 @@ export function create_planet(
     scene.add(sphere);
     plan_sphere_array.push(sphere);
   }
+
   //ring points
-  const ring_coords = fermats_spiral(3000, 1.45);
-  const ring_sphere_array = [];
-  const ring_mult = 2;
-  const ring_randMult = 0.1;
-  for (let i = 0; i < ring_coords.length; i++) {
-    const sphere = new THREE.Mesh(ring_sphere_geometry, ring_material_em);
+  if (is_ring) {
+    const ring_coords = fermats_spiral(3000, 1.45);
+    const ring_sphere_array = [];
+    const ring_mult = 2;
+    const ring_randMult = 0.1;
+    for (let i = 0; i < ring_coords.length; i++) {
+      const sphere = new THREE.Mesh(ring_sphere_geometry, ring_material_em);
 
-    const x = ring_coords[i][0] * ring_mult;
-    const z = ring_coords[i][1] * ring_mult;
+      const x = ring_coords[i][0] * ring_mult;
+      const z = ring_coords[i][1] * ring_mult;
 
-    const vec = [
-      x * (1 + Math.random() * ring_randMult),
-      (Math.random() - 0.5) * 0.5,
-      z * (1 + Math.random() * ring_randMult),
-    ];
+      const vec = [
+        x * (1 + Math.random() * ring_randMult),
+        (Math.random() - 0.5) * 0.5,
+        z * (1 + Math.random() * ring_randMult),
+      ];
 
-    sphere.position.x = vec[0] + param_x;
-    sphere.position.y = vec[1] + param_y;
-    sphere.position.z = vec[2] + param_z;
+      sphere.position.x = vec[0] + param_x;
+      sphere.position.y = vec[1] + param_y;
+      sphere.position.z = vec[2] + param_z;
 
-    const scale = getRndInteger(1, 3) / 200;
+      const scale = getRndInteger(1, 3) / 200;
 
-    sphere.scale.x = scale;
-    sphere.scale.y = scale;
-    sphere.scale.z = scale;
+      sphere.scale.x = scale;
+      sphere.scale.y = scale;
+      sphere.scale.z = scale;
 
-    scene.add(sphere);
-    ring_sphere_array.push(sphere);
+      scene.add(sphere);
+      ring_sphere_array.push(sphere);
+    }
   }
 }
