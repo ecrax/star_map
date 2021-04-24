@@ -61,7 +61,7 @@ function Galaxy(props) {
     window.addEventListener("resize", () =>
       onWindowResize(camera, renderer, composer)
     );
-  }, []);
+  });
 
   return (
     <span
