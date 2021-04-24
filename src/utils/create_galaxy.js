@@ -65,7 +65,14 @@ export function create_galaxy(
     sphere_geometry.applyMatrix4(originHelper.matrixWorld);
 
     //set color
+
     const colors = [];
+    /*
+    const b = bright[i] + 0.25;
+    for (let j = 0; j < 12; j++) {
+      colors.push(b, b, b);
+    }
+    */
     if (size[i] <= 1.0) {
       for (let i = 0; i < 12; i++) {
         if (!_bw) {
