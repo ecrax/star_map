@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { UnrealBloomPass } from "../../node_modules/three/examples/jsm/postprocessing/UnrealBloomPass";
 import { EffectComposer } from "../../node_modules/three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "../../node_modules/three/examples/jsm/postprocessing/RenderPass";
+import { LUTPass } from "../../node_modules/three/examples/jsm/postprocessing/LUTPass.js";
+import { LUTCubeLoader } from "../../node_modules/three/examples/jsm/loaders/LUTCubeLoader.js";
 
 import TrackballControls from "three-trackballcontrols";
 import { InteractionManager } from "three.interactive";
@@ -25,7 +27,8 @@ export function init() {
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.toneMapping = THREE.ReinhardToneMapping;
-  renderer.toneMappingExposure = Math.pow(1, 4.0);
+  //renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
   document.body.appendChild(renderer.domElement);
 
   //Glow
@@ -41,9 +44,15 @@ export function init() {
   bloomPass.strength = 5; //2;
   bloomPass.radius = 1;
 
+  // Lut
+  const lutPass = new LUTPass();
+  console.log(new LUTCubeLoader().load("../data/luts/MoeWarm.cube"));
+
+  //composer
   const composer = new EffectComposer(renderer);
   composer.addPass(renderScene);
   composer.addPass(bloomPass);
+  //composer.addPass(lutPass);
 
   //controls
   const controls = new TrackballControls(camera, renderer.domElement);

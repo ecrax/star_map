@@ -19,7 +19,6 @@ function Galaxy(props) {
     } = init();
 
     //GEO and Lights
-
     const { mesh, click_parent } = create_galaxy(
       false,
       0,
