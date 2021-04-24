@@ -57,7 +57,8 @@ const Nebula = (props) => {
     window.addEventListener("resize", () =>
       onWindowResize(camera, renderer, composer)
     );
-  }, []);
+  });
+
   return <div></div>;
 };
 

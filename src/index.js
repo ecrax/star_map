@@ -6,6 +6,12 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Galaxy from "./Galaxy";
 import Nebula from "./Nebula";
+import { cleanUpThree } from "./utils/cleanUpThree";
+
+// Removes any duplicate canvases if user uses browser "back" or "forward" button
+window.addEventListener("popstate", function (event) {
+  cleanUpThree();
+});
 
 ReactDOM.render(
   <React.StrictMode>
