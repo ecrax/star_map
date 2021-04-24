@@ -1,12 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Planet from "./Planet";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import Galaxy from "./Galaxy";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/planet/" component={Planet} />
+        <Route path="/galaxy/" component={Galaxy} />
+      </Switch>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

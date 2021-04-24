@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
-import * as THREE from "three";
 
 import { onWindowResize } from "./utils/windowResize";
 import { animate_utils } from "./utils/animate_utils";
 
 import { init } from "./utils/init_utils";
 
-import { create_planet } from "./utils/create_planet";
 import { create_galaxy } from "./utils/create_galaxy";
 
-function App() {
+function Galaxy() {
   useEffect(() => {
     const {
       scene,
@@ -21,19 +19,7 @@ function App() {
     } = init();
 
     //GEO and Lights
-    /*
-    create_planet(
-      true,
-      2,
-      0.1,
-      1000,
-      0,
-      0,
-      0,
-      scene,
-      camera,
-      interactionManager
-    );*/
+
     create_galaxy(
       false,
       0,
@@ -76,7 +62,19 @@ function App() {
     );
   }, []);
 
-  return <></>;
+  return (
+    <span
+      style={{
+        color: "white",
+        position: "fixed",
+        zIndex: 10,
+        margin: 10,
+        fontFamily: "monospace",
+      }}
+    >
+      Shift + LeftClick
+    </span>
+  );
 }
 
-export default App;
+export default Galaxy;
