@@ -20,7 +20,7 @@ function Planet() {
 
     //GEO and Lights
 
-    create_planet(
+    const { resTracker } = create_planet(
       true,
       2,
       0.1,
@@ -56,6 +56,11 @@ function Planet() {
     window.addEventListener("resize", () =>
       onWindowResize(camera, renderer, composer)
     );
+
+    return () => {
+      console.log("planet disposed");
+      resTracker.dispose();
+    };
   }, []);
 
   return <div></div>;

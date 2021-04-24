@@ -6,6 +6,7 @@ import getRndInteger from "./getRandInteger";
 import fermats_spiral from "./fermats_spiral";
 import goToPoint from "./goToPoint";
 import { cleanUpThree } from "./cleanUpThree";
+import { ResourceTracker } from "./ResourceTracker";
 
 import Galaxy from "../data/galaxy/galaxy.json";
 
@@ -29,6 +30,9 @@ export function create_galaxy(
   renderer,
   props
 ) {
+  const resTracker = new ResourceTracker();
+  const track = resTracker.track.bind(resTracker);
+
   const points = Galaxy[0]["points"];
   const temp = Galaxy[0]["temp"];
   const size = Galaxy[0]["size"];
@@ -40,14 +44,14 @@ export function create_galaxy(
 
   const geometries = [];
 
-  const positionHelper = new THREE.Object3D();
+  const positionHelper = track(new THREE.Object3D());
 
-  const originHelper = new THREE.Object3D();
+  const originHelper = track(new THREE.Object3D());
   originHelper.position.z = 0.5;
   positionHelper.add(originHelper);
 
   for (let i = 0; i < points.length; i++) {
-    const sphere_geometry = new THREE.SphereGeometry(1, 1, 1);
+    const sphere_geometry = track(new THREE.SphereGeometry(1, 1, 1));
     const x = points[i][0] / 1000;
     const y = (temp[i] / 3000) * (Math.random() * 0.2) + size[i] / 150;
     const z = points[i][1] / 1000;
@@ -110,15 +114,16 @@ export function create_galaxy(
     //add to geo
     geometries.push(sphere_geometry);
   }
-  const material = new THREE.MeshBasicMaterial({
-    vertexColors: THREE.VertexColors,
-  });
-
-  const mergedGeometry = BufferGeometryUtils.mergeBufferGeometries(
-    geometries,
-    false
+  const material = track(
+    new THREE.MeshBasicMaterial({
+      vertexColors: THREE.VertexColors,
+    })
   );
-  const mesh = new THREE.Mesh(mergedGeometry, material);
+
+  const mergedGeometry = track(
+    BufferGeometryUtils.mergeBufferGeometries(geometries, false)
+  );
+  const mesh = track(new THREE.Mesh(mergedGeometry, material));
   //apply pos, rot, scale
   mesh.position.x += _x;
   mesh.position.y += _y;
@@ -135,25 +140,31 @@ export function create_galaxy(
   mesh.doubleSided = false;
   scene.add(mesh);
 
-  const parent_sphere_geo = new THREE.SphereGeometry(0, 1, 1);
-  const click_parent = new THREE.Mesh(
-    parent_sphere_geo,
-    new THREE.MeshBasicMaterial({ opacity: 0 })
+  const parent_sphere_geo = track(new THREE.SphereGeometry(0, 1, 1));
+  const click_parent = track(
+    new THREE.Mesh(
+      parent_sphere_geo,
+      new THREE.MeshBasicMaterial({ opacity: 0 })
+    )
   );
   scene.add(click_parent);
 
   function create_click_sphere(_x, _y, _z) {
     const points = fermats_spiral(75, 0.2);
-    const sphere_geo = new THREE.SphereGeometry(1, 1, 1);
+    const sphere_geo = track(new THREE.SphereGeometry(1, 1, 1));
     const click_sphere_array = [];
-    for (let i = 0; i < points.length; i++) {
-      const click_sphere_wire_material = new THREE.MeshBasicMaterial({
+    const click_sphere_wire_material = track(
+      new THREE.MeshBasicMaterial({
         color: 0x595959,
         transparent: true,
         opacity: 0,
         wireframe: true,
-      });
-      const sphere = new THREE.Mesh(sphere_geo, click_sphere_wire_material);
+      })
+    );
+    for (let i = 0; i < points.length; i++) {
+      const sphere = track(
+        new THREE.Mesh(sphere_geo, click_sphere_wire_material)
+      );
 
       const x = points[i][0] * 40;
       const z = points[i][1] * 40;
@@ -209,5 +220,5 @@ export function create_galaxy(
     }
   }
   create_click_sphere(_x, _y, _z);
-  return { mesh, click_parent };
+  return { mesh, click_parent, resTracker };
 }

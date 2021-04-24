@@ -7,6 +7,7 @@ import fibonacci_sphere from "./fibbonaciSphere";
 import goToPoint from "./goToPoint";
 import { cleanUpThree } from "./cleanUpThree";
 import { planet_material_em } from "../three.js/mats";
+import { ResourceTracker } from "./ResourceTracker";
 
 //Create A Planet
 export function create_nebula(
@@ -22,7 +23,10 @@ export function create_nebula(
   renderer,
   props
 ) {
-  const planet_sphere_geometry = new THREE.SphereGeometry();
+  const resTracker = new ResourceTracker();
+  const track = resTracker.track.bind(resTracker);
+
+  const planet_sphere_geometry = track(new THREE.SphereGeometry());
 
   //planet points
   const plan_coords = fibonacci_sphere(_fib_samp);
@@ -30,7 +34,9 @@ export function create_nebula(
   const plan_mult = _plan_mult;
   const plan_randMult = _plan_randMult;
   for (let i = 0; i < plan_coords.length; i++) {
-    const sphere = new THREE.Mesh(planet_sphere_geometry, planet_material_em);
+    const sphere = track(
+      new THREE.Mesh(planet_sphere_geometry, planet_material_em)
+    );
 
     const x = plan_coords[i][0] * plan_mult;
     const y = plan_coords[i][1] * plan_mult;
@@ -82,4 +88,6 @@ export function create_nebula(
     scene.add(sphere);
     plan_sphere_array.push(sphere);
   }
+
+  return { resTracker };
 }

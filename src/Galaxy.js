@@ -19,7 +19,7 @@ function Galaxy(props) {
     } = init();
 
     //GEO and Lights
-    const { mesh, click_parent } = create_galaxy(
+    const { mesh, click_parent, resTracker } = create_galaxy(
       false,
       0,
       0,
@@ -64,6 +64,11 @@ function Galaxy(props) {
     window.addEventListener("resize", () =>
       onWindowResize(camera, renderer, composer)
     );
+
+    return () => {
+      console.log("disposed galaxy");
+      resTracker.dispose();
+    };
   });
 
   return (

@@ -20,7 +20,7 @@ const Nebula = (props) => {
 
     //GEO and Lights
 
-    create_nebula(
+    const { resTracker } = create_nebula(
       2,
       10,
       3000,
@@ -57,6 +57,11 @@ const Nebula = (props) => {
     window.addEventListener("resize", () =>
       onWindowResize(camera, renderer, composer)
     );
+
+    return () => {
+      console.log("nebula disposed");
+      resTracker.dispose();
+    };
   });
 
   return <div></div>;
