@@ -5,11 +5,11 @@ import * as TWEEN from "tween";
 import getRndInteger from "./getRandInteger";
 import fermats_spiral from "./fermats_spiral";
 import goToPoint from "./goToPoint";
+import { cleanUpThree } from "./cleanUpThree";
 
 import Galaxy from "../data/galaxy/galaxy.json";
 
 import { BufferGeometryUtils } from "../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js";
-import { cleanUpThree } from "./cleanUpThree";
 
 //galaxy
 export function create_galaxy(
@@ -196,7 +196,7 @@ export function create_galaxy(
               if (from.o === 0.0) {
                 //toLink("https://jonathan-kron.com/starmap/");
                 cleanUpThree();
-                props.history.push("/planet");
+                props.history.push("/nebula");
               }
             })
             .start();

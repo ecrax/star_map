@@ -1,3 +1,5 @@
 export const cleanUpThree = () => {
-  document.getElementsByTagName("canvas")[0].remove();
+  if (document.getElementsByTagName("canvas")[0]) {
+    document.getElementsByTagName("canvas")[0].remove();
+  }
 };

@@ -5,6 +5,7 @@ import Planet from "./Planet";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Galaxy from "./Galaxy";
+import Nebula from "./Nebula";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
         </Route>
         <Route path="/planet/" component={Planet} />
         <Route path="/galaxy/" component={Galaxy} />
+        <Route path="/nebula/" component={Nebula} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,
