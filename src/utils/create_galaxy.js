@@ -9,6 +9,7 @@ import goToPoint from "./goToPoint";
 import Galaxy from "../data/galaxy/galaxy.json";
 
 import { BufferGeometryUtils } from "../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js";
+import { cleanUpThree } from "./cleanUpThree";
 
 //galaxy
 export function create_galaxy(
@@ -194,6 +195,7 @@ export function create_galaxy(
               renderer.toneMappingExposure = from.o;
               if (from.o === 0.0) {
                 //toLink("https://jonathan-kron.com/starmap/");
+                cleanUpThree();
                 props.history.push("/planet");
               }
             })
