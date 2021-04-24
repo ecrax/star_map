@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Planet from "./Planet";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -10,6 +10,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Switch>
+        <Route exact path="/">
+          <Redirect to="/galaxy" />
+        </Route>
         <Route path="/planet/" component={Planet} />
         <Route path="/galaxy/" component={Galaxy} />
       </Switch>

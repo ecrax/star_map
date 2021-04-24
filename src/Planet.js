@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import * as THREE from "three";
 
 import { onWindowResize } from "./utils/windowResize";
 import { animate_utils } from "./utils/animate_utils";
@@ -7,7 +6,6 @@ import { animate_utils } from "./utils/animate_utils";
 import { init } from "./utils/init_utils";
 
 import { create_planet } from "./utils/create_planet";
-import { create_galaxy } from "./utils/create_galaxy";
 
 function Planet() {
   useEffect(() => {

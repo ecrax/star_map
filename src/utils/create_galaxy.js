@@ -5,15 +5,8 @@ import * as TWEEN from "tween";
 import getRndInteger from "./getRandInteger";
 import fermats_spiral from "./fermats_spiral";
 import goToPoint from "./goToPoint";
-import { toLink } from "./toLink";
 
 import Galaxy from "../data/galaxy/galaxy.json";
-
-import {
-  bg_color_material,
-  planet_material_em,
-  ring_material_em,
-} from "../three.js/mats";
 
 import { BufferGeometryUtils } from "../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js";
 
@@ -32,7 +25,8 @@ export function create_galaxy(
   scene,
   camera,
   interactionManager,
-  renderer
+  renderer,
+  props
 ) {
   const points = Galaxy[0]["points"];
   const temp = Galaxy[0]["temp"];
@@ -199,7 +193,8 @@ export function create_galaxy(
             .onUpdate(() => {
               renderer.toneMappingExposure = from.o;
               if (from.o === 0.0) {
-                toLink("https://jonathan-kron.com/starmap/");
+                //toLink("https://jonathan-kron.com/starmap/");
+                props.history.push("/planet");
               }
             })
             .start();

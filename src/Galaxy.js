@@ -7,7 +7,7 @@ import { init } from "./utils/init_utils";
 
 import { create_galaxy } from "./utils/create_galaxy";
 
-function Galaxy() {
+function Galaxy(props) {
   useEffect(() => {
     const {
       scene,
@@ -34,7 +34,8 @@ function Galaxy() {
       scene,
       camera,
       interactionManager,
-      renderer
+      renderer,
+      props
     );
 
     //lights
@@ -64,7 +65,7 @@ function Galaxy() {
     window.addEventListener("resize", () =>
       onWindowResize(camera, renderer, composer)
     );
-  }, []);
+  });
 
   return (
     <span
