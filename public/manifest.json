@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Star Map",
+  "name": "Create Star Map",
   "icons": [
     {
       "src": "favicon.ico",
