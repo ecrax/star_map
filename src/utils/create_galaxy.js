@@ -140,12 +140,17 @@ export function create_galaxy(
   mesh.doubleSided = false;
   scene.add(mesh);
 
+  const parent_sphere_geo = new THREE.SphereGeometry(1, 1, 1);
+  const click_parent = new THREE.Mesh(
+    parent_sphere_geo,
+    new THREE.MeshBasicMaterial({ opacity: 0 })
+  );
+  scene.add(click_parent);
+
   function create_click_sphere(_x, _y, _z) {
     const points = fermats_spiral(75, 0.2);
     const sphere_geo = new THREE.SphereGeometry(1, 1, 1);
-
     const click_sphere_array = [];
-
     for (let i = 0; i < points.length; i++) {
       const click_sphere_wire_material = new THREE.MeshBasicMaterial({
         color: 0x595959,
@@ -202,9 +207,10 @@ export function create_galaxy(
       });
       interactionManager.add(sphere);
 
-      scene.add(sphere);
+      click_parent.add(sphere);
       click_sphere_array.push(sphere);
     }
   }
   create_click_sphere(_x, _y, _z);
+  return { mesh, click_parent };
 }

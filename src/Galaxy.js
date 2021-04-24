@@ -20,7 +20,7 @@ function Galaxy() {
 
     //GEO and Lights
 
-    create_galaxy(
+    const { mesh, click_parent } = create_galaxy(
       false,
       0,
       0,
@@ -54,6 +54,10 @@ function Galaxy() {
         controls,
         composer
       );
+
+      //Custom Animations
+      mesh.rotation.y += 0.0001;
+      click_parent.rotation.y += 0.0001;
     }
     animate();
 

@@ -7,8 +7,7 @@ export function animate_utils(
   interactionManager,
   renderer,
   controls,
-  composer,
-  objArray
+  composer
 ) {
   renderer.render(scene, camera);
   controls.update();
