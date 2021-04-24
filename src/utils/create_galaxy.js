@@ -134,7 +134,7 @@ export function create_galaxy(
   mesh.doubleSided = false;
   scene.add(mesh);
 
-  const parent_sphere_geo = new THREE.SphereGeometry(1, 1, 1);
+  const parent_sphere_geo = new THREE.SphereGeometry(0, 1, 1);
   const click_parent = new THREE.Mesh(
     parent_sphere_geo,
     new THREE.MeshBasicMaterial({ opacity: 0 })
