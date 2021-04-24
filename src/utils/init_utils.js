@@ -12,9 +12,8 @@ import { bg_color } from "../three.js/consts";
 export function init() {
   //scene, camera
   const scene = new THREE.Scene();
-  {
-    scene.background = new THREE.Color(bg_color);
-  }
+  scene.background = new THREE.Color(bg_color);
+
   const camera = new THREE.PerspectiveCamera(
     90,
     window.innerWidth / window.innerHeight,
