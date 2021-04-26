@@ -41,7 +41,7 @@ export function init() {
     0.85
   );
   bloomPass.threshold = 0.25;
-  bloomPass.strength = 5; //2;
+  bloomPass.strength = 5; //3;
   bloomPass.radius = 1;
 
   // Lut

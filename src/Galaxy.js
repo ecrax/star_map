@@ -6,9 +6,11 @@ import { animate_utils } from "./utils/animate_utils";
 import { init } from "./utils/init_utils";
 
 import { create_galaxy } from "./utils/create_galaxy";
+import { load_obj } from "./utils/load_obj";
 
 function Galaxy(props) {
   useEffect(() => {
+    //init
     const {
       scene,
       camera,
@@ -18,7 +20,7 @@ function Galaxy(props) {
       interactionManager,
     } = init();
 
-    //GEO and Lights
+    //galaxy
     const { mesh, click_parent, resTracker } = create_galaxy(
       false,
       0,
@@ -37,6 +39,9 @@ function Galaxy(props) {
       props
     );
 
+    //custom obj
+    load_obj("");
+
     //lights
 
     //easy PRS changes
@@ -44,6 +49,7 @@ function Galaxy(props) {
     camera.position.y = 15;
     camera.position.z = 15;
 
+    //Animation
     function animate() {
       requestAnimationFrame(animate);
       animate_utils(
