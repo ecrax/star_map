@@ -18,7 +18,7 @@ function Galaxy(props) {
       composer,
       controls,
       interactionManager,
-    } = init();
+    } = init(2.275, 75);
 
     //galaxy
     const { mesh, click_parent, resTracker } = create_galaxy(
@@ -40,7 +40,7 @@ function Galaxy(props) {
     );
 
     //custom obj
-    load_obj("");
+    //const obj = load_obj(scene, "./data/models/test.obj");
 
     //lights
 

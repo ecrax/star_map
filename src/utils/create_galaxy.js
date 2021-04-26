@@ -38,10 +38,6 @@ export function create_galaxy(
   const size = Galaxy[0]["size"];
   const bright = Galaxy[0]["bright"];
 
-  const color = new THREE.Color(0x595959);
-
-  const gal_sphere_array = [];
-
   const geometries = [];
 
   const positionHelper = track(new THREE.Object3D());
@@ -64,7 +60,6 @@ export function create_galaxy(
     sphere_geometry.applyMatrix4(originHelper.matrixWorld);
 
     //set color
-
     const colors = [];
     /*
     const b = bright[i] + 0.25;
@@ -140,6 +135,7 @@ export function create_galaxy(
   mesh.doubleSided = false;
   scene.add(mesh);
 
+  //Parent
   const parent_sphere_geo = track(new THREE.SphereGeometry(0, 1, 1));
   const click_parent = track(
     new THREE.Mesh(
@@ -195,7 +191,7 @@ export function create_galaxy(
         if (ev.originalEvent.shiftKey) {
           const time = 2500;
           goToPoint(ev, camera, 10, 0.25, time);
-          ev.target.material.opacity = 1;
+          //ev.target.material.opacity = 1;
 
           const from = { o: 1.0 };
 

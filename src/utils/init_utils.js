@@ -11,7 +11,7 @@ import { InteractionManager } from "three.interactive";
 
 import { bg_color } from "../three.js/consts";
 
-export function init() {
+export function init(_minDistance, _maxDistance) {
   //scene, camera
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(bg_color);
@@ -45,8 +45,8 @@ export function init() {
   bloomPass.radius = 1;
 
   // Lut
-  const lutPass = new LUTPass();
-  console.log(new LUTCubeLoader().load("../data/luts/MoeWarm.cube"));
+  //const lutPass = new LUTPass();
+  //console.log(new LUTCubeLoader().load("../data/luts/MoeWarm.cube"));
 
   //composer
   const composer = new EffectComposer(renderer);
@@ -58,7 +58,8 @@ export function init() {
   const controls = new TrackballControls(camera, renderer.domElement);
   controls.rotateSpeed = 0.75;
   controls.noPan = true;
-  controls.minDistance = 2.275;
+  controls.minDistance = _minDistance;
+  controls.maxDistance = _maxDistance;
 
   //interaction
   const interactionManager = new InteractionManager(

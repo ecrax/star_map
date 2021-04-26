@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import * as THREE from "three";
 
 import { onWindowResize } from "./utils/windowResize";
 import { animate_utils } from "./utils/animate_utils";
@@ -6,6 +7,7 @@ import { animate_utils } from "./utils/animate_utils";
 import { init } from "./utils/init_utils";
 
 import { create_nebula } from "./utils/create_nebula";
+import { load_obj } from "./utils/load_obj";
 
 const Nebula = (props) => {
   useEffect(() => {
@@ -16,10 +18,9 @@ const Nebula = (props) => {
       composer,
       controls,
       interactionManager,
-    } = init();
+    } = init(0.1, 15);
 
-    //GEO and Lights
-
+    //Nebula
     const { resTracker } = create_nebula(
       2,
       10,
@@ -34,12 +35,21 @@ const Nebula = (props) => {
       props
     );
 
+    //custom obj
+    /*
+    const obj = load_obj(
+      scene,
+      "./data/models/test.obj",
+      new THREE.MeshStandardMaterial({ emissive: 0xffffff })
+    );
+    */
+
     //lights
 
     //easy PRS changes
-    camera.position.x = 15;
-    camera.position.y = 15;
-    camera.position.z = 15;
+    camera.position.x = 5;
+    camera.position.y = 5;
+    camera.position.z = 5;
 
     function animate() {
       requestAnimationFrame(animate);

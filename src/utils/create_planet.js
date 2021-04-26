@@ -1,15 +1,20 @@
 //imports
 import * as THREE from "three";
+
 import getRndInteger from "./getRandInteger";
 import fibonacci_sphere from "./fibbonaciSphere";
 import fermats_spiral from "./fermats_spiral";
 import goToPoint from "./goToPoint";
+
 import {
   bg_color_material,
   planet_material_em,
   ring_material_em,
 } from "../three.js/mats";
+
 import { ResourceTracker } from "./ResourceTracker";
+
+import { BufferGeometryUtils } from "../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js";
 
 //Create A Planet
 export function create_planet(
@@ -28,7 +33,7 @@ export function create_planet(
   const track = resTracker.track.bind(resTracker);
 
   const planet_sphere_geometry = track(new THREE.SphereGeometry());
-  const ring_sphere_geometry = track(new THREE.SphereGeometry(1, 2, 2));
+
   //Wireframe sphere
   const wire_material = track(
     new THREE.MeshBasicMaterial({
@@ -101,13 +106,18 @@ export function create_planet(
   //ring points
   if (is_ring) {
     const ring_coords = fermats_spiral(3000, 1.45);
-    const ring_sphere_array = [];
     const ring_mult = 2;
     const ring_randMult = 0.1;
+    const geometries = [];
+
+    const positionHelper = track(new THREE.Object3D());
+
+    const originHelper = track(new THREE.Object3D());
+    originHelper.position.z = 0.5;
+    positionHelper.add(originHelper);
+
     for (let i = 0; i < ring_coords.length; i++) {
-      const sphere = track(
-        new THREE.Mesh(ring_sphere_geometry, ring_material_em)
-      );
+      const sphere_geo = track(new THREE.SphereGeometry(1, 2, 2));
 
       const x = ring_coords[i][0] * ring_mult;
       const z = ring_coords[i][1] * ring_mult;
@@ -118,19 +128,24 @@ export function create_planet(
         z * (1 + Math.random() * ring_randMult),
       ];
 
-      sphere.position.x = vec[0] + param_x;
-      sphere.position.y = vec[1] + param_y;
-      sphere.position.z = vec[2] + param_z;
-
       const scale = getRndInteger(1, 3) / 200;
 
-      sphere.scale.x = scale;
-      sphere.scale.y = scale;
-      sphere.scale.z = scale;
+      positionHelper.position.set(vec[0], vec[1], vec[2]);
+      positionHelper.scale.set(scale, scale, scale);
+      originHelper.updateWorldMatrix(true, false);
+      sphere_geo.applyMatrix4(originHelper.matrixWorld);
 
-      scene.add(sphere);
-      ring_sphere_array.push(sphere);
+      //add to geo
+      geometries.push(sphere_geo);
     }
+    const mergedGeometry = track(
+      BufferGeometryUtils.mergeBufferGeometries(geometries, false)
+    );
+    const mesh = track(new THREE.Mesh(mergedGeometry, ring_material_em));
+    mesh.position.x += param_x;
+    mesh.position.y += param_y;
+    mesh.position.z += param_z;
+    scene.add(mesh);
   }
 
   return { resTracker };
