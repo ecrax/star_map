@@ -12,3 +12,4 @@ export function load_obj(scene, _path, _mat) {
     console.log(object);
   });
 }
+//Models in Public folder? as well as Luts
