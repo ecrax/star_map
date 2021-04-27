@@ -6,6 +6,7 @@ import { animate_utils } from "./utils/animate_utils";
 import { init } from "./utils/init_utils";
 
 import { create_planet } from "./utils/create_planet";
+import { getPlanet, uuidFromPlanetName } from "./utils/planetNames";
 
 function Planet() {
   useEffect(() => {
@@ -63,7 +64,26 @@ function Planet() {
     };
   }, []);
 
-  return <div></div>;
+  const planetName = getPlanet();
+  const uuid = uuidFromPlanetName(planetName);
+
+  return (
+    <div
+      style={{
+        color: "white",
+        position: "fixed",
+        zIndex: 10,
+        margin: 10,
+        fontFamily: "monospace",
+      }}
+    >
+      <span>{planetName}</span>
+      <br />
+      <span>{uuid}</span>
+      <br />
+      {/*<span>{uuid()}</span>*/}
+    </div>
+  );
 }
 
 export default Planet;
