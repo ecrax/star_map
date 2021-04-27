@@ -46,7 +46,7 @@ export function init(_minDistance, _maxDistance) {
 
   // Lut
   //const lutPass = new LUTPass();
-  //console.log(new LUTCubeLoader().load("../data/luts/MoeWarm.cube"));
+  //console.log(new LUTCubeLoader().load("path"));
 
   //composer
   const composer = new EffectComposer(renderer);

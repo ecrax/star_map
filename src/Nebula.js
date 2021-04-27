@@ -35,14 +35,6 @@ const Nebula = (props) => {
       props
     );
 
-    //custom obj
-
-    const obj = load_obj(
-      scene,
-      "./data/models/test.obj",
-      new THREE.MeshStandardMaterial({ emissive: 0xffffff })
-    );
-
     //lights
 
     //easy PRS changes

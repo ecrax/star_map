@@ -7,9 +7,9 @@ export function load_obj(scene, _path, _mat) {
   const track = resTracker.track.bind(resTracker);
   const loader = track(new OBJLoader());
   loader.load(_path, function (object) {
+    console.log(object[0]);
     object.material = _mat;
     scene.add(object);
-    console.log(object);
   });
 }
 //Models in Public folder? as well as Luts
