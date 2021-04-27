@@ -9,6 +9,8 @@ export const getPlanet = () => {
   return getName();
 };
 export const uuid = () =>
-  `${s4() + s4()}-${getPlanet().toLowerCase()}-${s4() + s4()}`;
+  `${s4() + s4()}-${getPlanet().toLowerCase().replaceAll(" ", "")}-${
+    s4() + s4()
+  }`;
 export const uuidFromPlanetName = (planet) =>
   `${s4() + s4()}-${planet.toLowerCase().replaceAll(" ", "")}-${s4() + s4()}`;
