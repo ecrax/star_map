@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { Object3D, Material, Texture } from "three";
 
 export class ResourceTracker {
   constructor() {
@@ -16,17 +16,17 @@ export class ResourceTracker {
       return resource;
     }
 
-    if (resource.dispose || resource instanceof THREE.Object3D) {
+    if (resource.dispose || resource instanceof Object3D) {
       this.resources.add(resource);
     }
-    if (resource instanceof THREE.Object3D) {
+    if (resource instanceof Object3D) {
       this.track(resource.geometry);
       this.track(resource.material);
       this.track(resource.children);
-    } else if (resource instanceof THREE.Material) {
+    } else if (resource instanceof Material) {
       // We have to check if there are any textures on the material
       for (const value of Object.values(resource)) {
-        if (value instanceof THREE.Texture) {
+        if (value instanceof Texture) {
           this.track(value);
         }
       }
@@ -36,7 +36,7 @@ export class ResourceTracker {
           if (value) {
             const uniformValue = value.value;
             if (
-              uniformValue instanceof THREE.Texture ||
+              uniformValue instanceof Texture ||
               Array.isArray(uniformValue)
             ) {
               this.track(uniformValue);
@@ -52,7 +52,7 @@ export class ResourceTracker {
   }
   dispose() {
     for (const resource of this.resources) {
-      if (resource instanceof THREE.Object3D) {
+      if (resource instanceof Object3D) {
         if (resource.parent) {
           resource.parent.remove(resource);
         }

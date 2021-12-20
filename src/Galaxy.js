@@ -6,7 +6,7 @@ import { animate_utils } from "./utils/animate_utils";
 import { init } from "./utils/init_utils";
 
 import { create_galaxy } from "./utils/create_galaxy";
-import { load_obj } from "./utils/load_obj";
+//import { load_obj } from "./utils/load_obj";
 
 function Galaxy(props) {
   useEffect(() => {

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { Vector3 } from "three";
 import * as TWEEN from "tween";
 
 //click to zoom in
@@ -27,7 +27,7 @@ const goToPoint = (ev, camera, _dis, _step, _time) => {
       if (count < _dis) {
         count += _step;
       }
-      camera.translateOnAxis(new THREE.Vector3(0, 0, 1), count);
+      camera.translateOnAxis(new Vector3(0, 0, 1), count);
     })
     .start();
 };

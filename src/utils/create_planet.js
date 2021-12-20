@@ -1,5 +1,4 @@
-//imports
-import * as THREE from "three";
+import { SphereGeometry, MeshBasicMaterial, Mesh, Object3D } from "three";
 
 import getRndInteger from "./getRandInteger";
 import fibonacci_sphere from "./fibbonaciSphere";
@@ -32,27 +31,25 @@ export function create_planet(
   const resTracker = new ResourceTracker();
   const track = resTracker.track.bind(resTracker);
 
-  const planet_sphere_geometry = track(new THREE.SphereGeometry());
+  const planet_sphere_geometry = track(new SphereGeometry());
 
   //Wireframe sphere
   const wire_material = track(
-    new THREE.MeshBasicMaterial({
+    new MeshBasicMaterial({
       color: 0x595959,
       transparent: true,
       wireframe: true,
     })
   );
-  const wire_sphere_geo = track(new THREE.SphereGeometry(2, 16, 16));
-  const wire_sphere = track(new THREE.Mesh(wire_sphere_geo, wire_material));
+  const wire_sphere_geo = track(new SphereGeometry(2, 16, 16));
+  const wire_sphere = track(new Mesh(wire_sphere_geo, wire_material));
   wire_sphere.position.x += param_x;
   wire_sphere.position.y += param_y;
   wire_sphere.position.z += param_z;
   scene.add(wire_sphere);
   //black inner sphere
-  const black_sphere_geo = track(new THREE.SphereGeometry(2, 16, 16));
-  const black_sphere = track(
-    new THREE.Mesh(black_sphere_geo, bg_color_material)
-  );
+  const black_sphere_geo = track(new SphereGeometry(2, 16, 16));
+  const black_sphere = track(new Mesh(black_sphere_geo, bg_color_material));
   black_sphere.position.x += param_x;
   black_sphere.position.y += param_y;
   black_sphere.position.z += param_z;
@@ -64,9 +61,7 @@ export function create_planet(
   const plan_mult = _plan_mult;
   const plan_randMult = _plan_randMult;
   for (let i = 0; i < plan_coords.length; i++) {
-    const sphere = track(
-      new THREE.Mesh(planet_sphere_geometry, planet_material_em)
-    );
+    const sphere = track(new Mesh(planet_sphere_geometry, planet_material_em));
 
     const x = plan_coords[i][0] * plan_mult;
     const y = plan_coords[i][1] * plan_mult;
@@ -110,14 +105,14 @@ export function create_planet(
     const ring_randMult = 0.1;
     const geometries = [];
 
-    const positionHelper = track(new THREE.Object3D());
+    const positionHelper = track(new Object3D());
 
-    const originHelper = track(new THREE.Object3D());
+    const originHelper = track(new Object3D());
     originHelper.position.z = 0.5;
     positionHelper.add(originHelper);
 
     for (let i = 0; i < ring_coords.length; i++) {
-      const sphere_geo = track(new THREE.SphereGeometry(1, 2, 2));
+      const sphere_geo = track(new SphereGeometry(1, 2, 2));
 
       const x = ring_coords[i][0] * ring_mult;
       const z = ring_coords[i][1] * ring_mult;
@@ -141,7 +136,7 @@ export function create_planet(
     const mergedGeometry = track(
       BufferGeometryUtils.mergeBufferGeometries(geometries, false)
     );
-    const mesh = track(new THREE.Mesh(mergedGeometry, ring_material_em));
+    const mesh = track(new Mesh(mergedGeometry, ring_material_em));
     mesh.position.x += param_x;
     mesh.position.y += param_y;
     mesh.position.z += param_z;

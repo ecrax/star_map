@@ -1,5 +1,5 @@
 //imports
-import * as THREE from "three";
+import { SphereGeometry, Mesh } from "three";
 import * as TWEEN from "tween";
 
 import getRndInteger from "./getRandInteger";
@@ -26,7 +26,7 @@ export function create_nebula(
   const resTracker = new ResourceTracker();
   const track = resTracker.track.bind(resTracker);
 
-  const planet_sphere_geometry = track(new THREE.SphereGeometry());
+  const planet_sphere_geometry = track(new SphereGeometry());
 
   //planet points
   const plan_coords = fibonacci_sphere(_fib_samp);
@@ -34,9 +34,7 @@ export function create_nebula(
   const plan_mult = _plan_mult;
   const plan_randMult = _plan_randMult;
   for (let i = 0; i < plan_coords.length; i++) {
-    const sphere = track(
-      new THREE.Mesh(planet_sphere_geometry, planet_material_em)
-    );
+    const sphere = track(new Mesh(planet_sphere_geometry, planet_material_em));
 
     const x = plan_coords[i][0] * plan_mult;
     const y = plan_coords[i][1] * plan_mult;

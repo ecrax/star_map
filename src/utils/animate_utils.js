@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { Vector3 } from "three";
 import * as TWEEN from "tween";
 
 export function animate_utils(
@@ -14,7 +14,7 @@ export function animate_utils(
 
   composer.render();
 
-  if (camera.position.equals(new THREE.Vector3(0, 0, 0))) {
+  if (camera.position.equals(new Vector3(0, 0, 0))) {
     camera.position.x = 1;
     camera.position.y = 1;
     camera.position.z = 1;

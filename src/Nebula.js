@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import * as THREE from "three";
+
 
 import { onWindowResize } from "./utils/windowResize";
 import { animate_utils } from "./utils/animate_utils";
@@ -7,7 +7,7 @@ import { animate_utils } from "./utils/animate_utils";
 import { init } from "./utils/init_utils";
 
 import { create_nebula } from "./utils/create_nebula";
-import { load_obj } from "./utils/load_obj";
+//import { load_obj } from "./utils/load_obj";
 
 const Nebula = (props) => {
   useEffect(() => {
